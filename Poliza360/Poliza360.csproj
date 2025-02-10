@@ -6,4 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PolizaController\PolizaController.csproj" />
+    <ProjectReference Include="..\PolizaDatabase\PolizaDatabase.csproj" />
+    <ProjectReference Include="..\PolizaModels\PolizaModels.csproj" />
+  </ItemGroup>
+
 </Project>
