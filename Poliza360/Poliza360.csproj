@@ -12,4 +12,8 @@
     <ProjectReference Include="..\PolizaModels\PolizaModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
 </Project>
