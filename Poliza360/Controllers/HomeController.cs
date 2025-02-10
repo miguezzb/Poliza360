@@ -13,12 +13,7 @@ namespace Poliza360.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
+        public IActionResult PolizaView()
         {
             return View();
         }

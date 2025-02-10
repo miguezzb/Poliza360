@@ -1,0 +1,142 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Poliza Page";
+}
+
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/js/templateAssets/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/js/templateAssets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/js/templateAssets/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/js/templateAssets/img/favicons/favicon.ico">
+    <link rel="manifest" href="/js/templateAssets/img/favicons/manifest.json">
+    <meta name="msapplication-TileImage" content="~/js/templateAssets/img/favicons/mstile-150x150.png">
+    <meta name="theme-color" content="#ffffff">
+    <script src="~/js/template/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="~/js/template/simplebar/simplebar.min.js"></script>
+    <script src="~/js/templateAssets/js/config.js"></script>
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <link href="~/js/template/simplebar/simplebar.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link href="~/js/templateAssets/css/theme-rtl.min.css" type="text/css" rel="stylesheet" id="style-rtl">
+    <link href="~/js/templateAssets/css/theme.min.css" type="text/css" rel="stylesheet" id="style-default">
+    <link href="~/js/templateAssets/css/user-rtl.min.css" type="text/css" rel="stylesheet" id="user-style-rtl">
+    <link href="~/js/templateAssets/css/user.min.css" type="text/css" rel="stylesheet" id="user-style-default">
+    <script>
+      var phoenixIsRTL = window.config.config.phoenixIsRTL;
+      if (phoenixIsRTL) {
+        var linkDefault = document.getElementById('style-default');
+        var userLinkDefault = document.getElementById('user-style-default');
+        linkDefault.setAttribute('disabled', true);
+        userLinkDefault.setAttribute('disabled', true);
+        document.querySelector('html').setAttribute('dir', 'rtl');
+      } else {
+        var linkRTL = document.getElementById('style-rtl');
+        var userLinkRTL = document.getElementById('user-style-rtl');
+        linkRTL.setAttribute('disabled', true);
+        userLinkRTL.setAttribute('disabled', true);
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+      <div class="content">
+        <div class="mb-9">
+          <div class="row g-3 mb-2">
+
+            <div class="col-auto">
+              <h2 class="mb-0">Póliza</h2>
+            </div>
+          </div>
+
+          <div id="gridES"></div>
+        </div>
+      </div>
+      <script>
+        var navbarTopStyle = window.config.config.phoenixNavbarTopStyle;
+        var navbarTop = document.querySelector('.navbar-top');
+        if (navbarTopStyle === 'darker') {
+          navbarTop.classList.add('navbar-darker');
+        }
+
+        var navbarVerticalStyle = window.config.config.phoenixNavbarVerticalStyle;
+        var navbarVertical = document.querySelector('.navbar-vertical');
+        if (navbarVertical && navbarVerticalStyle === 'darker') {
+          navbarVertical.classList.add('navbar-darker');
+        }
+      </script>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/js/template/popper/popper.min.js"></script>
+    <script src="~/js/template/bootstrap/bootstrap.min.js"></script>
+    <script src="~/js/template/anchorjs/anchor.min.js"></script>
+    <script src="~/js/template/is/is.min.js"></script>
+    <script src="~/js/template/fontawesome/all.min.js"></script>
+    <script src="~/js/template/lodash/lodash.min.js"></script>
+    <script src="~/js/template/list.js/list.min.js"></script>
+    <script src="~/js/template/feather-icons/feather.min.js"></script>
+    <script src="~/js/template/dayjs/dayjs.min.js"></script>
+    <script src="~/js/templateAssets/js/phoenix.js"></script>
+    <script src="~/js/template/echarts/echarts.min.js"></script>
+    <script src="~/js/template/leaflet/leaflet.js"></script>
+    <script src="~/js/template/leaflet.markercluster/leaflet.markercluster.js"></script>
+    <script src="~/js/template/leaflet.tilelayer.colorfilter/leaflet-tilelayer-colorfilter.min.js"></script>
+    <script src="~/js/templateAssets/js/ecommerce-dashboard.js"></script>
+
+    <script src="https://cdn.grapecity.com/wijmo/5.20242.30/controls/wijmo.min.js"></script>
+    <script src="https://cdn.grapecity.com/wijmo/5.20242.30/controls/wijmo.input.min.js"></script>
+    <script src="https://cdn.grapecity.com/wijmo/5.20242.30/controls/wijmo.grid.min.js"></script>
+    <script src="https://cdn.grapecity.com/wijmo/5.20242.30/controls/wijmo.grid.filter.min.js"></script>
+    <script src="https://cdn.grapecity.com/wijmo/5.20242.30/controls/wijmo.grid.cellmaker.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var gridES = null;
+
+            gridES = new wijmo.grid.FlexGrid('#gridES', {
+                    autoGenerateColumns: false,
+                    headersVisibility: 'Column',
+                    columns: [
+                        { binding: 'idEntrada_Salida', header: 'Id', width: 100 },
+                        { binding: 'folio', header: 'Folio', width: '*' },
+                        { binding: 'carro', header: 'Carro', width: 100 },
+                        { binding: 'fechaEntrada', header: 'Fecha Entrada', width: 200 },
+                        { binding: 'fechaSalida', header: 'Fecha Salida', width: 200 },
+                        { binding: '', header: '', width: 200 },
+                    ],
+                    isReadOnly: true
+                });
+        });
+    </script>
+
+  </body>
+</html>
