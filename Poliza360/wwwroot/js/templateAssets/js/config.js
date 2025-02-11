@@ -20,7 +20,7 @@
     'horizontal-navbar-appearance': 'phoenixNavbarTopStyle'
   };
 
-  const initialConfig = {
+    const initialConfig = {
     phoenixIsNavbarVerticalCollapsed: false,
     phoenixTheme: 'light',
     phoenixNavbarTopStyle: 'default',
