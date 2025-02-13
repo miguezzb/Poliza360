@@ -1,13 +1,8 @@
 ﻿<!DOCTYPE html>
-<html lang="en-US" dir="ltr">
+<html lang="es" dir="ltr">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <!--    Stylesheets    -->
         <link rel="stylesheet" href="https://cdn.grapecity.com/wijmo/5.20242.30/styles/wijmo.min.css">
-
         <style>
             .sidebar {
                 width: 220px; 
@@ -26,7 +21,7 @@
                 transform: translateX(-50%); /* Centra horizontalmente */
             }
 
-            #dateRange {
+            #dtRange {
                 position: relative;
             }
 
@@ -46,61 +41,102 @@
                     margin-right: 0; /* Sin margen en móviles */
                 }
             }
+
+            #btnAceptar{
+                background-color: #3498db;
+                color: #fff;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: box-shadow 0.5s ease;
+            }
+
+                #btnAceptar:hover {
+                    background-color: #2471a3;
+                    font-weight: bolder !important;
+                    box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+                }
+
+            #navFormulario {
+            border-left: 2px solid #cbd0dd; /* Color azul */
+                height: 100vh; /* Altura completa */
+                box-sizing: border-box; /* Evita desbordamiento */
+            }
         </style>
     </head>
 
     <body>
         <!--    Main Content    -->
-        <div class="container-fluid">
-            <div class="row">
-                <!-- Contenido    -->
-                <main class="col-md-9 col-lg-10 px-md-4 main-content">
-                    <h3 class="border-bottom mb-5">Pólizas</h3>
-                    <div id="gridPoliza"></div>
-                </main>
+        <div class="row">
+            <!-- Contenido    -->
+            <main class="col-md-9 col-lg-10 px-md-4 main-content">
+                <h3 class="border-bottom mb-5">Pólizas</h3>
+                <div id="gridPoliza"></div>
+            </main>
 
-                <!-- Navbar Vertical -->
-                <nav class="col-md-3 col-lg-2 sidebar order-last order-md-first">
-                    <div class="position-sticky pt-3">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <p>FORMULARIO</p>
-                                <div id="cmbFormulario"></div>
+            <!-- Navbar Vertical -->
+            <nav class="col-md-3 col-lg-2 sidebar order-last order-md-first bg-darker" id="navFormulario">
+                <div class="position-sticky pt-3 navbar-darker">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <p class="navbar-vertical-label">FORMULARIO</p>
+                            <div id="cmbFormulario"></div>
 
-                                <div class="hidden mt-2" id="inputEmpleado1">
-                                    <input type="text" class="form-control" id="iptEmpleado1" placeholder="Empleado Inicial">
-                                </div>
+                            <div class="hidden mt-2" id="iptEmpleado1">
+                                <input type="text" class="form-control" id="iptEmpleado1" placeholder="Empleado Inicial">
+                            </div>
 
-                                <div class="hidden mt-1 mb-3" id="inputEmpleado2">
-                                    <input type="text" class="form-control" id="iptEmpleado2" placeholder="Empleado Final">
-                                </div>
+                            <div class="hidden mt-1 mb-3" id="iptEmpleado2">
+                                <input type="text" class="form-control" id="iptEmpleado2" placeholder="Empleado Final">
+                            </div>
 
-                                <div class="hidden mt-2 mb-3" id="divCmbEmpleado3">
-                                    <div id="cmbEmpleado3"></div>
-                                </div>
+                            <div class="hidden mt-2 mb-3" id="divCmbEmpleado3">
+                                <div id="cmbEmpleado3"></div>
+                            </div>
 
-                                <p >* Razón Social</p>
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="iptRazonSocial" placeholder="Razon Social">
-                                </div>
+                            <div class="hidden mt-2 mb-3" id="divCmbEmpleado4">
+                                <div id="cmbEmpleado4"></div>
+                            </div>
 
-                                <p>* Grupo</p>
-                                <div class="mb-3">
-                                    <div id="cmbGrupo"></div>
-                                </div>
+                            <p class="navbar-vertical-label">* Razón Social</p>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="iptRazonSocial" placeholder="Razon Social">
+                            </div>
 
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="noPoliza" placeholder="No. Poliza">
-                                </div>
+                            <p class="navbar-vertical-label">* Grupo</p>
+                            <div class="mb-3">
+                                <div id="cmbGrupo"></div>
+                            </div>
 
-                                <div class="mb-3">
-                                    <div id="dateRange" class="flex-grow-1"></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="iptPoliza" placeholder="No. Poliza">
+                            </div>
+
+                            <div class="mb-3">
+                                <div id="dtRange" class="flex-grow-1"></div>
+                            </div>
+
+                            <p class="navbar-vertical-label">* Regla</p>
+                            <div class="mb-3">
+                                <div id="cmbRegla"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="iptLugar" placeholder="Lugar">
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="iptContratante" placeholder="Contratante">
+                            </div>
+
+                            <div class="mb-3">
+                                <button class="form-control" id="btnAceptar">Aceptar</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
 
         <!--    JavaScripts    -->
@@ -112,17 +148,34 @@
         <script src="https://cdn.grapecity.com/wijmo/5.20242.30/controls/wijmo.grid.cellmaker.min.js"></script>
 
         <script>
-        $(document).ready(function () {
-            var dateRange;
-            dateRange = new wijmo.input.InputDate('#dateRange', {
+            var dtRange = new wijmo.input.InputDate('#dtRange', {
                 placeholder: 'Selecciona una fecha',
             });
 
+            var gridPoliza = new wijmo.grid.FlexGrid('#gridPoliza', {
+                autoGenerateColumns: false,
+                headersVisibility: 'Column',
+                columns: [
+                    { binding: 'idEntrada_Salida', header: 'Id', width: 50 },
+                    { binding: 'folio', header: 'Folio', width: 100 },
+                    { binding: 'carro', header: 'Carro', width: 150 },
+                    { binding: 'fechaEntrada', header: 'Fecha Entrada', width: '*' },
+                    { binding: 'fechaSalida', header: 'Fecha Salida', width: '*' },
+                ],
+                itemsSource: [
+                    { idEntrada_Salida: 1, folio: 'F001', carro: 'Carro1', fechaEntrada: '2025-02-11', fechaSalida: '2025-02-11' },
+                    { idEntrada_Salida: 2, folio: 'F002', carro: 'Carro2', fechaEntrada: '2025-02-12', fechaSalida: '2025-02-12' },
+                    { idEntrada_Salida: 3, folio: 'F003', carro: 'Carro3', fechaEntrada: '2025-02-13', fechaSalida: '2025-02-13' }
+                ],
+                isReadOnly: true
+            });
             const $inputs = {
-                empleado1: $("#inputEmpleado1"),
-                empleado2: $("#inputEmpleado2"),
+                empleado1: $("#iptEmpleado1"),
+                empleado2: $("#iptEmpleado2"),
                 empleado3: $("#divCmbEmpleado3"),
-                empleado4: $("#cmbGrupo")
+                empleado4: $("#divCmbEmpleado4"),
+                empleado5: $("#cmbGrupo"),
+                empleado6: $("#cmbRegla"),
             };
 
             const FORM_OPTIONS = [
@@ -143,27 +196,17 @@
                 { OptionG: 'Grupo 3' },
             ];
 
-            new wijmo.grid.FlexGrid('#gridPoliza', {
-                autoGenerateColumns: false,
-                headersVisibility: 'Column',
-                columns: [
-                    { binding: 'idEntrada_Salida', header: 'Id', width: 100 },
-                    { binding: 'folio', header: 'Folio', width: 75 },
-                    { binding: 'carro', header: 'Carro', width: 200 },
-                    { binding: 'fechaEntrada', header: 'Fecha Entrada', width: '*' },
-                    { binding: 'fechaSalida', header: 'Fecha Salida', width: '*' },
-                ],
-                itemsSource: [
-                    { idEntrada_Salida: 1, folio: 'F001', carro: 'Carro1', fechaEntrada: '2025-02-10', fechaSalida: '2025-02-11' },
-                    { idEntrada_Salida: 2, folio: 'F002', carro: 'Carro2', fechaEntrada: '2025-02-11', fechaSalida: '2025-02-12' },
-                ],
-                isReadOnly: true
-            });
+            const RULE_OPTIONS = [
+                { OptionR: 'Regla 1' },
+                { OptionR: 'Regla 2' },
+                { OptionR: 'Regla 3' },
+            ];
 
-            const toggleVisibility = (showEmpleados, showCC) => {
+            const toggleVisibility = (showEmpleados, showCC, showG) => {
                 $inputs.empleado1.toggleClass('showed', showEmpleados).toggleClass('hidden', !showEmpleados);
                 $inputs.empleado2.toggleClass('showed', showEmpleados).toggleClass('hidden', !showEmpleados);
                 $inputs.empleado3.toggleClass('showed', showCC).toggleClass('hidden', !showCC);
+                $inputs.empleado4.toggleClass('showed', showG).toggleClass('hidden', !showG);
             };
 
             const cmbEmpleado3 = new wijmo.input.AutoComplete('#cmbEmpleado3', {
@@ -171,9 +214,19 @@
                 itemsSource: CC_OPTIONS
             });
 
+            const CmbEmpleado4 = new wijmo.input.AutoComplete('#cmbEmpleado4', {
+                displayMemberPath: 'OptionG',
+                itemsSource: GROUP_OPTIONS
+            });
+
             const cmbGrupo = new wijmo.input.AutoComplete('#cmbGrupo', {
                 displayMemberPath: 'OptionG',
                 itemsSource: GROUP_OPTIONS
+            });
+
+            const cmbRule = new wijmo.input.AutoComplete('#cmbRegla', {
+                displayMemberPath: 'OptionR',
+                itemsSource: RULE_OPTIONS
             });
 
             const cmbFormulario = new wijmo.input.AutoComplete('#cmbFormulario', {
@@ -181,15 +234,14 @@
                 itemsSource: FORM_OPTIONS,
                 textChanged: sender => {
                     const option = sender.selectedItem?.Option;
-                    toggleVisibility(option === 'Empleado', option === 'Centro de costos');
+                    toggleVisibility(option === 'Empleado', option === 'Centro de costos', option === 'Grupos');
                 }
             });
 
-            setTimeout(() => { 
-                cmbFormulario.selectedIndex = 0; 
+            setTimeout(() => {
+                cmbFormulario.selectedIndex = 0;
                 cmbFormulario.textChanged.raise(cmbFormulario); // Forzar actualización
             }, 100);
-        });
         </script>
     </body>
 </html>
