@@ -10,36 +10,41 @@
 
         <style>
             .sidebar {
-                width: 220px; /* Ancho fijo */
-                height: 100vh; /* Altura completa de la ventana */
-                position: fixed; /* Fijar el navbar */
-                overflow-y: auto; /* Habilitar scroll si el contenido es largo */
-                right: 0; /* Pegar a la derecha */
-                top: 60px; /* Alinear arriba */
-                background-color: #ffffff; /* Color de fondo */
+                width: 220px; 
+                height: 100vh; 
+                position: fixed; 
+                overflow-y: auto; 
+                right: 0; 
+                top: 60px; 
+                background-color: #ffffff; 
+                overflow: visible !important;
             }
 
-            .showed {
-                display: block; /* Muestra el elemento */
+            .wj-popup-container {
+                position: fixed !important;
+                z-index: 1000;
+                transform: translateX(-50%); /* Centra horizontalmente */
             }
 
-            .hidden {
-                display: none; /* Oculta el elemento */
+            #dateRange {
+                position: relative;
             }
+
+            .showed { display: block; }
+
+            .hidden { display: none; }
 
             @@media (max-width: 767.98px) {
-                .sidebar
-            {
-                width: 100%; /* Navbar ocupa todo el ancho en móviles */
-                height: auto; /* Altura automática */
-                position: static; /* No fijar en móviles */
-            }
+                    .sidebar
+                {
+                    width: 100%; /* Navbar ocupa todo el ancho en móviles */
+                    height: auto; 
+                    position: static; /* No fijar en móviles */
+                }
 
-            main {
-                margin-right: 0; /* Sin margen en móviles */
-            }
-
-            
+                main {
+                    margin-right: 0; /* Sin margen en móviles */
+                }
             }
         </style>
     </head>
@@ -48,40 +53,49 @@
         <!--    Main Content    -->
         <div class="container-fluid">
             <div class="row">
-                <!-- Contenido Principal -->
-                <main class="col-md-9 col-lg-10 px-md-4">
+                <!-- Contenido    -->
+                <main class="col-md-9 col-lg-10 px-md-4 main-content">
                     <h3 class="border-bottom mb-5">Pólizas</h3>
                     <div id="gridPoliza"></div>
                 </main>
 
                 <!-- Navbar Vertical -->
-                <nav class="col-md-3 col-lg-2 d-md-block sidebar order-md-last">
+                <nav class="col-md-3 col-lg-2 sidebar order-last order-md-first">
                     <div class="position-sticky pt-3">
                         <ul class="nav flex-column">
-
                             <li class="nav-item">
                                 <p>FORMULARIO</p>
                                 <div id="cmbFormulario"></div>
 
                                 <div class="hidden mt-2" id="inputEmpleado1">
-                                    <input type="text" class="form-control" placeholder="Empleado Inicial">
+                                    <input type="text" class="form-control" id="iptEmpleado1" placeholder="Empleado Inicial">
                                 </div>
 
-                                <div class="hidden mt-1" id="inputEmpleado2">
-                                    <input type="text" class="form-control" placeholder="Empleado Final">
+                                <div class="hidden mt-1 mb-3" id="inputEmpleado2">
+                                    <input type="text" class="form-control" id="iptEmpleado2" placeholder="Empleado Final">
                                 </div>
 
-                                @* <div class="hidden mt-2" id="cmbEmpleado3"></div> *@
-                            </li>
+                                <div class="hidden mt-2 mb-3" id="divCmbEmpleado3">
+                                    <div id="cmbEmpleado3"></div>
+                                </div>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Servicios</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Productos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Contacto</a>
+                                <p >* Razón Social</p>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="iptRazonSocial" placeholder="Razon Social">
+                                </div>
+
+                                <p>* Grupo</p>
+                                <div class="mb-3">
+                                    <div id="cmbGrupo"></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="noPoliza" placeholder="No. Poliza">
+                                </div>
+
+                                <div class="mb-3">
+                                    <div id="dateRange" class="flex-grow-1"></div>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -98,89 +112,84 @@
         <script src="https://cdn.grapecity.com/wijmo/5.20242.30/controls/wijmo.grid.cellmaker.min.js"></script>
 
         <script>
-            $(document).ready(function () {
-                const $inputEmpleado1 = $("#inputEmpleado1");
-                const $inputEmpleado2 = $("#inputEmpleado2");
-                // const $cmbEmpleado3 = $("#cmbEmpleado3");
-  
-                // Grid de Poliza
-                var gridPoliza = null;
-                var data = [
+        $(document).ready(function () {
+            var dateRange;
+            dateRange = new wijmo.input.InputDate('#dateRange', {
+                placeholder: 'Selecciona una fecha',
+            });
+
+            const $inputs = {
+                empleado1: $("#inputEmpleado1"),
+                empleado2: $("#inputEmpleado2"),
+                empleado3: $("#divCmbEmpleado3"),
+                empleado4: $("#cmbGrupo")
+            };
+
+            const FORM_OPTIONS = [
+                { Option: 'Empleado' },
+                { Option: 'Centro de costos' },
+                { Option: 'Grupos' },
+            ];
+
+            const CC_OPTIONS = [
+                { OptionCC: 'CC1' },
+                { OptionCC: 'CC2' },
+                { OptionCC: 'CC3' },
+            ];
+
+            const GROUP_OPTIONS = [
+                { OptionG: 'Grupo 1' },
+                { OptionG: 'Grupo 2' },
+                { OptionG: 'Grupo 3' },
+            ];
+
+            new wijmo.grid.FlexGrid('#gridPoliza', {
+                autoGenerateColumns: false,
+                headersVisibility: 'Column',
+                columns: [
+                    { binding: 'idEntrada_Salida', header: 'Id', width: 100 },
+                    { binding: 'folio', header: 'Folio', width: 75 },
+                    { binding: 'carro', header: 'Carro', width: 200 },
+                    { binding: 'fechaEntrada', header: 'Fecha Entrada', width: '*' },
+                    { binding: 'fechaSalida', header: 'Fecha Salida', width: '*' },
+                ],
+                itemsSource: [
                     { idEntrada_Salida: 1, folio: 'F001', carro: 'Carro1', fechaEntrada: '2025-02-10', fechaSalida: '2025-02-11' },
                     { idEntrada_Salida: 2, folio: 'F002', carro: 'Carro2', fechaEntrada: '2025-02-11', fechaSalida: '2025-02-12' },
-                ];
-                gridPoliza = new wijmo.grid.FlexGrid('#gridPoliza', {
-                    autoGenerateColumns: false,
-                    headersVisibility: 'Column',
-                    columns: [
-                        { binding: 'idEntrada_Salida', header: 'Id', width: 100 },
-                        { binding: 'folio', header: 'Folio', width: 75 },
-                        { binding: 'carro', header: 'Carro', width: 200 },
-                        { binding: 'fechaEntrada', header: 'Fecha Entrada', width: '*' },
-                        { binding: 'fechaSalida', header: 'Fecha Salida', width: '*' },
-                    ],
-                    itemsSource: data,
-                    isReadOnly: true
-                });
+                ],
+                isReadOnly: true
+            });
 
-                // ComboBox Formulario
-                function getData() {
-                    return [
-                        { Option: 'Empleado' },
-                        { Option: 'Centro de costos' },
-                        { Option: 'Grupos' },
-                    ];
-                }   
-                let CmbFormulario = new wijmo.input.AutoComplete('#cmbFormulario', {
-                    displayMemberPath: 'Option',
-                    itemsSource: getData(),
-                    textChanged: (sender) => {
-                        const valorSeleccionado = sender.selectedItem?.Option; // Obtener el valor
-                        console.log(valorSeleccionado);
-                    }
-                });
-                function valorCombobox(sender) {
-                    return CmbFormulario.selectedItem?.Option || null;
-                }
-                /* function getDataCC() {
-                     return [
-                         { OptionCC: 'CC1' },
-                         { OptionCC: 'CC2' },
-                         { OptionCC: 'CC3' },
-                     ];
-                 }
-                 let CmbEmpleado3 = new wijmo.input.AutoComplete('#cmbEmpleado3', {
-                     displayMemberPath: 'OptionCC',
-                     itemsSource: getDataCC(),
-                     textChanged: (sender) => {
-                         const valorSelected = sender.selectedItem?.Option; // Obtener el valor
-                         console.log(valorSelected);
-                 }
-                });*/
+            const toggleVisibility = (showEmpleados, showCC) => {
+                $inputs.empleado1.toggleClass('showed', showEmpleados).toggleClass('hidden', !showEmpleados);
+                $inputs.empleado2.toggleClass('showed', showEmpleados).toggleClass('hidden', !showEmpleados);
+                $inputs.empleado3.toggleClass('showed', showCC).toggleClass('hidden', !showCC);
+            };
 
-                if (CmbFormulario.selectedItem?.Option == "Empleado"){
-                    $inputEmpleado1.removeClass('hidden');
-                    $inputEmpleado1.addClass('showed');
-                    $inputEmpleado2.removeClass('hidden');
-                    $inputEmpleado2.addClass('showed');
-                }
-                else if (CmbFormulario.selectedItem?.Option == "Centro de costos"){
-                    console.log("ES CENTRO DE COSTOS");
-                    $inputEmpleado1.removeClass('showed');
-                    $inputEmpleado2.removeClass('showed');
-                    $inputEmpleado1.addClass('hidden');
-                    $inputEmpleado2.addClass('hidden');
+            const cmbEmpleado3 = new wijmo.input.AutoComplete('#cmbEmpleado3', {
+                displayMemberPath: 'OptionCC',
+                itemsSource: CC_OPTIONS
+            });
 
-                    // $cmbEmpleado3.removeClass('hidden');
-                    // $cmbEmpleado3.addClass('showed');
-                }
-                else {
-                    $inputEmpleado1.removeClass('showed');
-                    $inputEmpleado2.removeClass('showed');
-                    $inputEmpleado1.addClass('hidden');
-                    $inputEmpleado2.addClass('hidden');
+            const cmbGrupo = new wijmo.input.AutoComplete('#cmbGrupo', {
+                displayMemberPath: 'OptionG',
+                itemsSource: GROUP_OPTIONS
+            });
+
+            const cmbFormulario = new wijmo.input.AutoComplete('#cmbFormulario', {
+                displayMemberPath: 'Option',
+                itemsSource: FORM_OPTIONS,
+                textChanged: sender => {
+                    const option = sender.selectedItem?.Option;
+                    toggleVisibility(option === 'Empleado', option === 'Centro de costos');
                 }
             });
+
+            setTimeout(() => { 
+                cmbFormulario.selectedIndex = 0; 
+                cmbFormulario.textChanged.raise(cmbFormulario); // Forzar actualización
+            }, 100);
+        });
         </script>
     </body>
 </html>
