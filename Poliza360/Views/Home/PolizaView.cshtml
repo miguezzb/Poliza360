@@ -25,9 +25,17 @@
                 position: relative;
             }
 
-            .showed { display: block; }
+            .showed {
+                display: block;
+                opacity: 1;
+                transition: opacity 0.3s ease-in-out;
+            }
 
-            .hidden { display: none; }
+            .hidden {
+                display: none;
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
+            }
 
             @@media (max-width: 767.98px) {
                     .sidebar
@@ -113,6 +121,7 @@
                                 <input type="text" class="form-control" id="iptPoliza" placeholder="No. Poliza">
                             </div>
 
+                            <p class="navbar-vertical-label">* Vigencia Póliza</p>
                             <div class="mb-3">
                                 <div id="dtRange" class="flex-grow-1"></div>
                             </div>
@@ -203,10 +212,30 @@
             ];
 
             const toggleVisibility = (showEmpleados, showCC, showG) => {
-                $inputs.empleado1.toggleClass('showed', showEmpleados).toggleClass('hidden', !showEmpleados);
-                $inputs.empleado2.toggleClass('showed', showEmpleados).toggleClass('hidden', !showEmpleados);
-                $inputs.empleado3.toggleClass('showed', showCC).toggleClass('hidden', !showCC);
-                $inputs.empleado4.toggleClass('showed', showG).toggleClass('hidden', !showG);
+                // Animación empleados 1 y 2
+                if(showEmpleados) {
+                    $inputs.empleado1.add($inputs.empleado2).stop(true, true).fadeIn(500)
+                        .removeClass('hidden').addClass('showed');
+                } else {
+                    $inputs.empleado1.add($inputs.empleado2).stop(true, true).fadeOut(400)
+                        .removeClass('showed').addClass('hidden');
+                }
+
+                if(showCC) {
+                    $inputs.empleado3.stop(true, true).fadeIn(500)
+                        .removeClass('hidden').addClass('showed');
+                } else {
+                    $inputs.empleado3.stop(true, true).fadeOut(400)
+                        .removeClass('showed').addClass('hidden');
+                }
+
+                if(showG) {
+                    $inputs.empleado4.stop(true, true).fadeIn(500)
+                        .removeClass('hidden').addClass('showed');
+                } else {
+                    $inputs.empleado4.stop(true, true).fadeOut(400)
+                        .removeClass('showed').addClass('hidden');
+                }
             };
 
             const cmbEmpleado3 = new wijmo.input.AutoComplete('#cmbEmpleado3', {

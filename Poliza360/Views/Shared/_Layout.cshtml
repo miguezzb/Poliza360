@@ -37,16 +37,18 @@
     <main class="main" id="top">
         @* Navbar Vertical *@
       <nav class="navbar navbar-vertical navbar-expand-lg">
-            
             <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
                 <div class="navbar-vertical-content">
                     <ul class="navbar-nav flex-column" id="navbarVerticalNav">
                         <li class="nav-item">
                             <p class="navbar-vertical-label">Menú</p>
-                            <hr class="navbar-vertical-line" />
+                            <hr class="navbar-vertical-line"/>
 
                             <div class="nav-item-wrapper">
-                                <a class="nav-link active label-1" href="/" onclick="window.location.href='/'" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="nv-Catalogos">
+                                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["Action"]?.ToString() == "PolizaView" ? "active" : "")"
+                                    asp-action="PolizaView"
+                                    asp-controller="Home"
+                                    role="button" aria-expanded="false" aria-controls="nv-Catalogos">
                                     <div class="d-flex align-items-center">
                                         <span class="nav-link-icon">
                                             <span data-feather="clipboard"></span>
@@ -77,15 +79,9 @@
                                             Catálogos
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="index.html">
-                                                <div class="d-flex align-items-center">
-                                                    <span data-feather="globe"></span>
-                                                    <span class="nav-link-text ms-2">Grupos</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="index.html">
+                                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Reglas" && ViewContext.RouteData.Values["Action"]?.ToString() == "ReglasView" ? "active" : "")"
+                                                asp-action="ReglasView"
+                                                asp-controller="Reglas">
                                                 <div class="d-flex align-items-center">
                                                     <span data-feather="tool"></span>
                                                     <span class="nav-link-text ms-2">Reglas</span>
@@ -93,7 +89,19 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="index.html">
+                                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Grupo" && ViewContext.RouteData.Values["Action"]?.ToString() == "GrupoView" ? "active" : "")"
+                                                asp-action="GrupoView"
+                                                asp-controller="Grupo">
+                                                <div class="d-flex align-items-center">
+                                                    <span data-feather="globe"></span>
+                                                    <span class="nav-link-text ms-2">Grupo</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Beneficiarios" && ViewContext.RouteData.Values["Action"]?.ToString() == "BeneficiariosView" ? "active" : "")"
+                                                asp-action="BeneficiariosView"
+                                                asp-controller="Beneficiarios">
                                                 <div class="d-flex align-items-center">
                                                     <span data-feather="users"></span>
                                                     <span class="nav-link-text ms-2">Beneficiarios</span>
@@ -115,7 +123,7 @@
                     <span class="navbar-vertical-footer-text ms-2">Collapsed View</span>
                 </button>
             </div>
-        </nav>
+      </nav>
 
         @* Navbar Horizontal *@
       <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault">
@@ -272,5 +280,21 @@
     <script src="~/js/template/dayjs/dayjs.min.js"></script>
     <script src="~/js/template/bootstrap/bootstrap.min.js"></script>
     <script src="~/js/templateAssets/js/phoenix.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener la ruta actual
+            const currentPath = window.location.pathname.toLowerCase();
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                const linkPath = new URL(link.href).pathname.toLowerCase();
+
+                // Comparar rutas y agregar clase active
+                if (linkPath === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
   </body>
 </html>
