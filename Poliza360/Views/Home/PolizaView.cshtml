@@ -59,7 +59,6 @@
                 cursor: pointer;
                 transition: box-shadow 0.5s ease;
             }
-
                 #btnAceptar:hover {
                     background-color: #2471a3;
                     font-weight: bolder !important;
@@ -105,6 +104,7 @@
 
                             <div class="hidden mt-2 mb-3" id="divCmbEmpleado4">
                                 <div id="cmbEmpleado4"></div>
+                                <a asp-action="GrupoView" asp-controller="Grupo" class="nav-link"></a>
                             </div>
 
                             <p class="navbar-vertical-label">* Razón Social</p>
@@ -178,6 +178,7 @@
                 ],
                 isReadOnly: true
             });
+
             const $inputs = {
                 empleado1: $("#iptEmpleado1"),
                 empleado2: $("#iptEmpleado2"),
@@ -230,8 +231,10 @@
                 }
 
                 if(showG) {
+                    redirigirView();
                     $inputs.empleado4.stop(true, true).fadeIn(500)
                         .removeClass('hidden').addClass('showed');
+                    
                 } else {
                     $inputs.empleado4.stop(true, true).fadeOut(400)
                         .removeClass('showed').addClass('hidden');
@@ -271,6 +274,11 @@
                 cmbFormulario.selectedIndex = 0;
                 cmbFormulario.textChanged.raise(cmbFormulario); // Forzar actualización
             }, 100);
+
+            function redirigirView(){
+                const polizaUrl = '@Url.Action("GrupoView", "Grupo")';
+                window.location.href = polizaUrl;
+            };
         </script>
     </body>
 </html>
